@@ -1,9 +1,0 @@
-
-font-family = JetBrainsMono NFM
-font-size = 16
-background-opacity = 0.9
-theme = catppuccin-mocha
-macos-titlebar-style = hidden
-window-padding-x = 8
-window-padding-y = 8
-window-padding-balance = true

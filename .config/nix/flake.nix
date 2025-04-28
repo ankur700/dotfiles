@@ -50,7 +50,17 @@
         pkgs.python3
         pkgs.gnumake
         pkgs.cmake
-        
+
+        # Productivity
+        pkgs.appflowy
+        pkgs.obsidian
+        pkgs.ollama
+
+        # Entertainment
+        pkgs.spotify
+        pkgs.vivaldi
+        pkgs.arc-browser
+      
         # Editors
         pkgs.neovim
         pkgs.code-cursor
@@ -95,6 +105,8 @@
         brews = [
           "watchman"     # React Native development
           "mkcert"      # Local SSL certificates
+          "lua"
+          "luarocks"
         ];
         casks = [
           # Development
@@ -102,6 +114,9 @@
           "ghostty"
           "warp"
           "orbstack"
+          "herd"
+          "signal"
+          "lm-studio"
           "tableplus"   # Database GUI
           
           # Browsers
@@ -125,6 +140,7 @@
         masApps = {
           # Add specific apps here with their IDs
           # Example: "Xcode" = 497799835;
+          "WhatsApp" = 310633997;
         };
       };
 
