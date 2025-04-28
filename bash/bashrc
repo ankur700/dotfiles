@@ -1,0 +1,127 @@
+#!/bin/bash
+
+# =============================================================================
+# Nix Environment Configuration
+# =============================================================================
+
+# Source the nix-darwin environment if it exists
+if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
+  source '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+fi
+
+# Source the darwin-specific environment if it exists
+if [ -e '/etc/static/bashrc' ]; then
+  source '/etc/static/bashrc'
+fi
+
+# =============================================================================
+# Terminal Configuration
+# =============================================================================
+
+# Set the terminal configuration for Ghostty
+if [[ "$TERM_PROGRAM" == "ghostty" ]]; then
+    export TERM=xterm-256color
+fi
+
+# =============================================================================
+# Aliases
+# =============================================================================
+
+# Modern CLI alternatives
+alias ls="eza --icons --git"
+alias ll="eza -l --icons --git"
+alias tree="eza --tree"
+alias cat="bat"
+
+# Development shortcuts
+alias dc="docker compose"
+alias g="git"
+
+# Shell management
+alias rbash="source ~/.bashrc"
+alias rzsh="source ~/.zshrc"
+
+# File operations
+alias mv="mv -vi"
+alias cpv="rsync -avh --info=progress2"
+alias cl="clear"
+alias c="clear"
+alias count="ls * | wc -l"
+alias suno="sudo nano"
+#alias n="nano"
+
+# SSH shortcuts
+alias sawtee-forge="ssh forge@143.244.138.3"
+
+# Starship theme shortcuts
+alias ss-jetpack='starship preset jetpack -o ~/.config/starship.toml'
+alias ss-pure='starship preset pure-preset -o ~/.config/starship.toml'
+alias ss-gruvbox='starship preset gruvbox-rainbow -o ~/.config/starship.toml'
+alias ss-tn='starship preset tokyo-night -o ~/.config/starship.toml'
+alias ss-cat='starship preset catppuccin-powerline -o ~/.config/starship.toml'
+
+# Directory navigation shortcuts
+alias ..="cd .."
+alias cd..="cd .."
+alias ...="cd ../../"
+alias ....="cd ../../../"
+
+# =============================================================================
+# Path Configuration
+# =============================================================================
+
+# Herd injected PHP binary
+export PATH="/Users/ankur/Library/Application Support/Herd/bin/":$PATH
+
+# Go binaries
+export PATH="/usr/local/go/bin:$PATH"
+
+# Nix profile
+export PATH=$HOME/.nix-profile/bin:$PATH
+
+# =============================================================================
+# Tool Initialization
+# =============================================================================
+
+# Initialize starship prompt
+if command -v starship &> /dev/null; then
+    eval "$(starship init bash)"
+fi
+
+# Initialize zoxide
+if command -v zoxide &> /dev/null; then
+    eval "$(zoxide init bash)"
+fi
+
+# Initialize direnv
+if command -v direnv &> /dev/null; then
+    eval "$(direnv hook bash)"
+fi
+
+# =============================================================================
+# Bash-specific Settings
+# =============================================================================
+
+# Enable bash history
+HISTSIZE=1000
+HISTFILESIZE=2000
+HISTCONTROL=ignoreboth
+
+# Check window size after each command
+shopt -s checkwinsize
+
+# Make bash append rather than overwrite the history on disk
+shopt -s histappend
+
+# Enable programmable completion features
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    source /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+    source /etc/bash_completion
+  fi
+fi
+
+
+# Auto-Warpify
+[[ "$-" == *i* ]] && printf 'P$f{"hook": "SourcedRcFileForWarp", "value": { "shell": "bash", "uname": "Darwin" }}œ' 
