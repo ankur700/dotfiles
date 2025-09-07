@@ -1,9 +1,17 @@
 
 font-family = JetBrainsMono NFM
-font-size = 16
+font-size = 14
+font-feature=-liga
+font-thicken=true
+
+title=working-directory
+window-title-font-family=title="JetBrainsMono NFM"
 background-opacity = 0.9
-theme = tokyonight
-macos-titlebar-style = hidden
+theme = light:catppuccin-latte, dark:catppuccin-mocha
 window-padding-x = 8
 window-padding-y = 8
 window-padding-balance = true
+window-width = 90
+window-height = 30
+window-position-x = 300
+window-position-y = 200

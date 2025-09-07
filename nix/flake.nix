@@ -34,16 +34,8 @@
 
       # List packages installed in system profile.
       environment.systemPackages = [
-        # Core utilities
-        pkgs.tmux
-        pkgs.oh-my-zsh
-        pkgs.starship
-        pkgs.neofetch
-        
+
         # Development tools
-        pkgs.gh
-        pkgs.git
-        pkgs.lazygit
         pkgs.volta
         pkgs.pnpm
         pkgs.yarn
@@ -52,48 +44,27 @@
         pkgs.cmake
 
         # Productivity
-        pkgs.appflowy
         pkgs.obsidian
-        pkgs.ollama
 
-        # Entertainment
-        pkgs.spotify
-        pkgs.vivaldi
-        pkgs.arc-browser
-      
         # Editors
         pkgs.neovim
-        pkgs.code-cursor
-        pkgs.zed-editor
 
         # Container tools
         pkgs.docker
         pkgs.docker-compose
         pkgs.lazydocker
-        
-        # Database tools
-        pkgs.sqlite
-        pkgs.postgresql_15
-        
+
         # Search and navigation
-        pkgs.ripgrep
-        pkgs.fzf
         pkgs.fd
-        pkgs.zoxide
-        pkgs.bat
-        pkgs.eza
-        
+
         # Network and API tools
         pkgs.curl
-        pkgs.wget
         pkgs.httpie
-        pkgs.jq
-        
+
         # System utilities
         pkgs.localsend
         pkgs.keycastr
         pkgs.xz
-        pkgs.zsh-autocomplete
         pkgs.openssl
         pkgs.direnv
       ];
@@ -107,6 +78,29 @@
           "mkcert"      # Local SSL certificates
           "lua"
           "luarocks"
+          "wget"
+          "jq"
+          "eza"
+          "bat"
+          "fzf"
+          "gh"
+          "git"
+          "lazygit"
+          "ripgrep"
+          "mas"
+          "gh"
+          "ifstat"
+          "switchaudio-osx"
+          "skhd"
+          "sketchybar"
+          "borders"
+          "neovim"
+          "starship"
+          "zsh-autosuggestions"
+          "zsh-fast-syntax-highlighting"
+          "lulu"
+          "lazygit"
+          "btop"
         ];
         casks = [
           # Development
@@ -117,20 +111,26 @@
           "herd"
           "signal"
           "lm-studio"
+          "spotify"
           "tableplus"   # Database GUI
-          
+          "libreoffice"
+          "zoom"
+          "meetingbar"
+          "vlc"
+
           # Browsers
+          "arc"
           "google-chrome"
-	  "zen-browser"
-          
+	        "zen-browser"
+          "orion"
+
           # Utilities
           "raycast"     # Spotlight replacement
-          "rectangle"   # Window management
           "alt-tab"    # Window switcher
           "imageoptim"
           "signal"
           "vlc"
-          
+
           # Fonts
           "font-jetbrains-mono-nerd-font"
           "font-caskaydia-cove-nerd-font"
@@ -155,11 +155,11 @@
           alias ll="eza -l --icons --git"
           alias tree="eza --tree"
           alias cat="bat"
-          
+
           # Development shortcuts
           alias dc="docker compose"
           alias g="git"
-          
+
           # Initialize helpful tools
           eval "$(direnv hook zsh)"
           eval "$(starship init zsh)"
