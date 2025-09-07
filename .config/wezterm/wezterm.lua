@@ -1,0 +1,41 @@
+local wezterm = require('wezterm')
+local keys = require('keymap')
+local wallpaper = require('wallpaper')
+local config = wezterm.config_builder()
+
+wezterm.on('window-config-reloaded', function(window)
+    local font_size = 16
+    if wezterm.gui.screens().active.height <= 1080 then
+        font_size = 12
+    end
+    window:set_config_overrides({
+        font_size = font_size,
+    })
+end)
+
+config = {
+    --background = wallpaper,
+    keys = keys,
+    max_fps = 120,
+    font_size = 14,
+    front_end = 'WebGpu',
+    animation_fps = 120,
+    enable_tab_bar = false,
+    --background = wallpaper,
+    default_cursor_style = 'SteadyBar',
+    --enable_kitty_graphics = true,
+    --term = 'xkitty-term',
+    window_decorations = 'RESIZE',
+    window_background_opacity = 0.7,
+    color_scheme = 'GruvboxDarkHard',
+    macos_window_background_blur = 25,
+    window_close_confirmation = 'NeverPrompt',
+    webgpu_power_preference = 'HighPerformance',
+    --font = wezterm.font('CaskaydiaCove Nerd Font'),
+    --font = wezterm.font('Liga SFono Nerd Font'),
+    --font = wezterm.font('Iosevka Nerd Font'),
+    --font = wezterm.font('FiraCode Nerd Font'),
+    font = wezterm.font('VictorMono Nerd Font', { weight = 'Medium' }),
+}
+
+return config
