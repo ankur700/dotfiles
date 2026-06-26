@@ -1,5 +1,3 @@
-export STARSHIP_CONFIG=~/.config/starship/starship.toml
-
 # =============================================================================
 # Nix Environment Configuration
 # =============================================================================
@@ -9,11 +7,20 @@ if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
   source '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
 fi
 
+export ZSH="$HOME/.oh-my-zsh"
+ZSH_THEME="robbyrussell"
+plugins=(git)
+
+source $ZSH/oh-my-zsh.sh
+
+export STARSHIP_CONFIG=~/.config/starship/starship.toml
+
+
 # get machine's ip address
 alias ip="ipconfig getifaddr en0"
 
 # edit global zsh configuration
-alias zshconfig="vim ~/.zshrc"
+alias zshconfig="nvim ~/.zshrc"
 # reload zsh configuration
 alias zshsource="source ~/.zshrc"
 # reload zsh configuration
@@ -22,10 +29,10 @@ alias ohmyzsh="cd ~/.oh-my-zsh"
 # navigate to global ssh directory
 alias sshhome="cd ~/.ssh"
 # edit global ssh configuration
-alias sshconfig="vim ~/.ssh/config"
+alias sshconfig="nvim ~/.ssh/config"
 
 # edit global git configuration
-alias gitconfig="vim ~/.gitconfig"
+alias gitconfig="nvim ~/.config/git/config"
 
 # git aliases
 alias gitl="git lg"
@@ -54,7 +61,10 @@ alias dup="docker-compose up -d"
 alias dbuild="docker-compose build"
 alias dstop="docker stop"
 alias ls="eza --color=always --git --icons=always"
-
+alias "theme-tokyo-night"="starship preset tokyo-night -o ~/dotfiles/.config/starship/starship.toml && source ~/.zshrc"
+alias "theme-gruvbox"="starship preset gruvbox-rainbow -o ~/dotfiles/.config/starship/starship.toml && source ~/.zshrc"
+alias "theme-jetpack"="starship preset jetpack -o ~/dotfiles/.config/starship/starship.toml && source ~/.zshrc"
+alias code="codium"
 # use vi mode
 #set -o vi
 bindkey -e
@@ -74,33 +84,32 @@ setopt HIST_FIND_NO_DUPS
 setopt HIST_REDUCE_BLANKS
 
 export PATH=$PATH":$HOME/bin"
+export PATH="/Users/ankur/.volta/bin:$PATH"
 export PATH=$PATH":$HOME/run/current-system/sw/bin"
 export PATH="/Users/ankursingh/.local/bin:$PATH"
-# export PATH="$HOME/.tmuxifier/bin:$PATH"
+export PATH="$HOME/.tmuxifier/bin:$PATH"
 export PATH=$PATH":$HOME/go/bin"
 export PATH=$PATH":$HOME/.config/zfunc"
 export PATH="$(brew --prefix)/opt/curl/bin:$PATH"
 export PATH="$(brew --prefix)/opt/mysql-client/bin:$PATH"
-export PATH="/$PATH:$HOME/.cargo/bin"
+# export PATH="/$PATH:$HOME/.cargo/bin"
 export PATH=$PATH:"$HOME/Library/Python/3.10/bin"
-export PATH="/Applications/flameshot.app/Contents/MacOS/:$PATH"
-export NVM_DIR="$HOME/.nvm"
 export LESS="-XRFS"
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#a89984"
 export FZF_CTRL_T_OPTS="--preview 'bat -n --color=always --style=numbers {}'"
 export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -200'"
 # catppuccin
-#export FZF_DEFAULT_OPTS=" \
-#--color=spinner:#f5e0dc,hl:#f38ba8 \
-#--color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
-#--color=marker:#b4befe,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8 \
-#--multi"
-# gruvbox
 export FZF_DEFAULT_OPTS=" \
- --color=spinner:#8ec07c,hl:#83a598 \
- --color=fg:#bdae93,header:#83a598,info:#fabd2f,pointer:#8ec07c \
- --color=marker:#8ec07c,fg+:#ebdbb2,prompt:#fabd2f,hl+:#83a598
- --multi"
+--color=spinner:#f5e0dc,hl:#f38ba8 \
+--color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
+--color=marker:#b4befe,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8 \
+--multi"
+# gruvbox
+# export FZF_DEFAULT_OPTS=" \
+#  --color=spinner:#8ec07c,hl:#83a598 \
+#  --color=fg:#bdae93,header:#83a598,info:#fabd2f,pointer:#8ec07c \
+#  --color=marker:#8ec07c,fg+:#ebdbb2,prompt:#fabd2f,hl+:#83a598
+#  --multi"
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 bindkey "ç" fzf-cd-widget # atl + c
@@ -135,8 +144,8 @@ source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 autoload -U compinit && compinit
 
 # use nvm
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+# export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
 # use starship theme (needs to be at the end)
 eval "$(zoxide init zsh)"
@@ -146,3 +155,19 @@ zvm_after_init_commands+=('[ -f $HOME/.fzf.zsh ] && source $HOME/.fzf.zsh')
 eval "$(starship init zsh)"
 
 
+
+
+# Herd injected PHP 8.4 configuration.
+export HERD_PHP_84_INI_SCAN_DIR="/Users/ankur/Library/Application Support/Herd/config/php/84/"
+
+
+# Herd injected PHP 8.5 configuration.
+export HERD_PHP_85_INI_SCAN_DIR="/Users/ankur/Library/Application Support/Herd/config/php/85/"
+
+
+# Herd injected PHP 8.3 configuration.
+export HERD_PHP_83_INI_SCAN_DIR="/Users/ankur/Library/Application Support/Herd/config/php/83/"
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/ankur/.lmstudio/bin"
+# End of LM Studio CLI section

@@ -13,8 +13,6 @@ brew analytics off
 ## Taps
 echo "Tapping Brew..."
 brew tap homebrew/cask-fonts
-brew tap FelixKratz/formulae
-brew tap koekeishiya/formulae
 tap "jesseduffield/lazygit"
 tap "jorgerojas26/lazysql"
 tap "shaunsingh/sfmono-nerd-font-ligaturized"
@@ -29,9 +27,7 @@ brew install mas
 brew install gh
 brew install ifstat
 brew install switchaudio-osx
-brew install skhd
 brew install sketchybar
-brew install borders
 
 
 # programming
@@ -43,7 +39,6 @@ brew install "gitleaks"
 brew install "lua"
 brew install "luajit"
 brew install "stylua"
-brew install "python@3.13"
 
 
 ### Terminal
@@ -59,15 +54,12 @@ brew install "zsh-vi-mode"
 
 
 ### Nice to have
-brew install lulu
 brew install btop
 # brew install svim
 brew install lazygit
 brew install lazysql
 brew install gitmux
-brew install mycli
 brew install wireguard-go
-brew install dooit
 brew install "bat"
 brew install "cmake"
 brew install "commitizen"
@@ -79,42 +71,29 @@ brew install "ffmpeg"
 brew install "figlet"
 brew install "fzf"
 brew install "gd"
-brew install "kanata"
 brew install "lsusb"
 brew install "ripgrep"
-brew install "spotify_player"
-brew install "tldr"
 brew install "tmux"
 
 
 ## Casks
 echo "Installing Brew Casks..."
 ### Terminals & Browsers
-brew install --cask alacritty
 brew install --cask wezterm
 brew install --cask ghostty
 brew install --cask zen
 brew install --cask google-chrome
 brew install --cask arc
-brew install --cask orion
-brew install --cask vivaldi
 
 ### Office
-brew install --cask inkscape
-brew install --cask libreoffice
-brew install --cask zoom
-brew install --cask meetingbar
+brew install --cask onlyoffice
 brew install --cask vlc
 
 ### Nice to have
 brew install --cask raycast
-brew install --cask rectangle
-brew install --cask hammerspoon
 brew install --cask keycastr
 brew install --cask spotify
-brew install --cask notion
 brew install --cask obsidian
-brew install --cask hiddenbar
 
 ### Fonts
 brew install --cask sf-symbols
@@ -195,25 +174,17 @@ git clone git@github.com:shaunsingh/SFMono-Nerd-Font-Ligaturized.git /tmp/SFMono
 mv /tmp/SFMono_Nerd_Font/* $HOME/Library/Fonts
 rm -rf /tmp/SFMono_Nerd_Font/
 
-curl -L https://github.com/kvndrsslr/sketchybar-app-font/releases/download/v1.0.23/sketchybar-app-font.ttf -o $HOME/Library/Fonts/sketchybar-app-font.ttf
-
-
 # symlinks
 echo "Creating Symlinks..."
 
 # symlink .config dir
 ln -s -f ~/dotfiles/.config/aerospace ~/.config/
 ln -s -f ~/dotfiles/.config/bat ~/.config/
-ln -s -f ~/dotfiles/.config/borders ~/.config/
 ln -s -f ~/dotfiles/.config/btop ~/.config/
-ln -s -f ~/dotfiles/.config/sketchybar ~/.config/
-ln -s -f ~/dotfiles/.config/skhd ~/.config/
 
 ln -s -f ~/dotfiles/.config/figlet ~/.config/
 ln -s -f ~/dotfiles/.config/ghostty ~/.config/
-ln -s -f ~/dotfiles/.config/alacritty ~/.config/
 ln -s -f ~/dotfiles/.config/helix ~/.config/
-ln -s -f ~/dotfiles/.config/kitty/ ~/.config/
 ln -s -f ~/dotfiles/.config/nvim/ ~/.config/
 ln -s -f ~/dotfiles/.config/starship ~/.config/
 ln -s -f ~/dotfiles/.config/tmux/ ~/.config/
@@ -221,10 +192,8 @@ ln -s -f ~/dotfiles/.config/wezterm ~/.config/
 
 ln -s -f ~/dotfiles/.config/git/.gitconfig ~/.gitconfig
 ln -s -f ~/dotfiles/.config/gitmux/.gitmux.conf ~/.gitmux.conf
-ln -s -f ~/dotfiles/.config/hammerspoon/init.lua ~/.hammerspoon/init.lua
 ln -s -f ~/dotfiles/.config/lazygit/config.yaml ~/Library/Application\ Support/lazygit/config.yml
 ln -s -f ~/dotfiles/.config/lazysql/config.yaml ~/Library/Application\ Support/lazysql/config.toml
-ln -s -f ~/dotfiles/.config/mycli/.myclirc ~/.myclirc
 ln -s -f ~/dotfiles/.config/tmux/.tmux.conf ~/.tmux.conf
 ln -s -f ~/dotfiles/.config/tmuxifier/* ~/.tmuxifier/layouts/
 ln -s -f ~/dotfiles/.config/zsh/.zshenv ~/.zshenv
@@ -235,14 +204,10 @@ cfg config --local status.showUntrackedFiles no
 
 # Start Services
 echo "Starting Services (grant permissions)..."
-brew services start skhd
 brew services start aerospace
-brew services start sketchybar
 brew services start borders
 # brew services start svim
 
 csrutil status
-# echo "Do not forget to disable SIP and reconfigure keyboard -> $HOME/.config/keyboard..."
-# open "$HOME/.config/keyboard/KeyboardModifierKeySetup.png"
-# echo "Add sudoer manually:\n '$(whoami) ALL = (root) NOPASSWD: sha256:$(shasum -a 256 $(which yabai) | awk "{print \$1;}") $(which yabai) --load-sa' to '/private/etc/sudoers.d/yabai'"
+
 echo "Installation complete...\n"

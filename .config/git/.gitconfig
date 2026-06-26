@@ -16,3 +16,5 @@
 	email = abishek.singh.chauhan@gmail.com
 [init]
 	defaultBranch = main
+[core]
+	excludesfile = /Users/ankur/.gitignore_global

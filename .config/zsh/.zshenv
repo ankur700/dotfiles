@@ -27,3 +27,5 @@ function zvm_vi_yank() {
 	echo ${CUTBUFFER} | pbcopy
 	zvm_exit_visual_mode
 }
+export VOLTA_HOME="$HOME/.volta"
+export PATH="$VOLTA_HOME/bin:$PATH"
