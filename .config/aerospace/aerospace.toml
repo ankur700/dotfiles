@@ -1,8 +1,13 @@
-# Available commands: https://nikitabobko.github.io/AeroSpace/commands
-after-login-command = []
+# Place a copy of this config to ~/.aerospace.toml
+# After that, you can edit ~/.aerospace.toml to your liking
 
+# Config version for compatibility and deprecations
+# Fallback value (if you omit the key): config-version = 1
+config-version = 2
+
+# You can use it to add commands that run after AeroSpace startup.
 # Available commands : https://nikitabobko.github.io/AeroSpace/commands
- #after-startup-command = []
+after-startup-command = []
 
 after-startup-command = ['exec-and-forget sketchybar']
 
@@ -95,173 +100,50 @@ ctrl-shift-j = 'move down'
 ctrl-shift-k = 'move up'
 ctrl-shift-l = 'move right'
 
-# See: https://nikitabobko.github.io/AeroSpace/commands#resize
-# change this layout
-#alt-shift-j = 'resize smart -50'
-#alt-shift-k = 'resize smart +50'
-#alt-shift-h = 'resize smart-opposite -50'
-#alt-shift-l = 'resize smart-opposite +50'
+    # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
+    alt-shift-1 = 'move-node-to-workspace 1'
+    alt-shift-2 = 'move-node-to-workspace 2'
+    alt-shift-3 = 'move-node-to-workspace 3'
+    alt-shift-4 = 'move-node-to-workspace 4'
+    alt-shift-5 = 'move-node-to-workspace 5'
+    alt-shift-a = 'move-node-to-workspace A'
+    alt-shift-b = 'move-node-to-workspace B'
+    alt-shift-c = 'move-node-to-workspace C'
+    alt-shift-e = 'move-node-to-workspace E'
+    alt-shift-o = 'move-node-to-workspace O'
+    alt-shift-p = 'move-node-to-workspace P'
+    alt-shift-q = 'move-node-to-workspace Q'
+    alt-shift-r = 'move-node-to-workspace R'
+    alt-shift-s = 'move-node-to-workspace S'
+    alt-shift-t = 'move-node-to-workspace T'
+    alt-shift-u = 'move-node-to-workspace U'
+    alt-shift-v = 'move-node-to-workspace V'
+    alt-shift-w = 'move-node-to-workspace W'
+    alt-shift-x = 'move-node-to-workspace X'
+    alt-shift-y = 'move-node-to-workspace Y'
+    alt-shift-z = 'move-node-to-workspace Z'
 
-# See: https://nikitabobko.github.io/AeroSpace/commands#workspace
-alt-p = 'workspace personal'
-alt-c = 'workspace chats'
-alt-m = 'workspace misc'
-alt-t = 'workspace terminal'
-alt-w = 'workspace work'
+    # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
+    alt-tab = 'workspace-back-and-forth'
+    # See: https://nikitabobko.github.io/AeroSpace/commands#move-workspace-to-monitor
+    alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
 
-# See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
-alt-shift-p = 'exec-and-forget aerospace move-node-to-workspace --focus-follows-window personal && sketchybar --trigger custom_space_windows_change'
-alt-shift-c = 'exec-and-forget aerospace move-node-to-workspace --focus-follows-window chats && sketchybar --trigger custom_space_windows_change'
-alt-shift-m = 'exec-and-forget aerospace move-node-to-workspace --focus-follows-window misc && sketchybar --trigger custom_space_windows_change'
-alt-shift-t = 'exec-and-forget aerospace move-node-to-workspace --focus-follows-window terminal && sketchybar --trigger custom_space_windows_change'
-alt-shift-w = 'exec-and-forget aerospace move-node-to-workspace --focus-follows-window work && sketchybar --trigger custom_space_windows_change'
-#alt-shift-p = 'move-node-to-workspace --focus-follows-window personal'
-#alt-shift-c = 'move-node-to-workspace --focus-follows-window chats'
-#alt-shift-m = 'move-node-to-workspace --focus-follows-window misc'
-#alt-shift-t = 'move-node-to-workspace --focus-follows-window terminal'
-#alt-shift-w = 'move-node-to-workspace --focus-follows-window work'
-
-cmd-space = 'exec-and-forget ~/bin/app-launcher'
-cmd-shift-s = 'exec-and-forget ~/bin/terminal-file-search wezterm'
-
-# See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
-alt-enter = 'workspace-back-and-forth'
-# See: https://nikitabobko.github.io/AeroSpace/commands#move-workspace-to-monitor
-alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
-
-# See: https://nikitabobko.github.io/AeroSpace/commands#mode
-alt-shift-semicolon = ['mode service', 'exec-and-forget sketchybar --trigger aerospace_mode_change MODE=service']
-
-alt-r = ['mode resize', 'exec-and-forget sketchybar --trigger aerospace_mode_change MODE=resize']
-
-[mode.resize.binding]
-h = 'resize smart -50'
-l = 'resize smart +50'
-j = 'resize smart-opposite -50'
-k = 'resize smart-opposite +50'
-enter = ['mode main', 'exec-and-forget sketchybar --trigger aerospace_mode_change MODE=main']
-esc = ['mode main', 'exec-and-forget sketchybar --trigger aerospace_mode_change MODE=main']
-q = ['mode main', 'exec-and-forget sketchybar --trigger aerospace_mode_change MODE=main']
-space = ['mode main', 'exec-and-forget sketchybar --trigger aerospace_mode_change MODE=main']
+    # See: https://nikitabobko.github.io/AeroSpace/commands#mode
+    alt-shift-semicolon = 'mode service'
 
 # 'service' binding mode declaration.
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
 [mode.service.binding]
-esc = ['reload-config', 'mode main', 'exec-and-forget sketchybar --trigger aerospace_mode_change MODE=main']
-r = ['flatten-workspace-tree', 'mode main', 'exec-and-forget sketchybar --trigger aerospace_mode_change MODE=main'] # reset layout
-#s = ['layout sticky tiling', 'mode main'] # sticky is not yet supported https://github.com/nikitabobko/AeroSpace/issues/2
-f = ['layout floating tiling', 'mode main', 'exec-and-forget sketchybar --trigger aerospace_mode_change MODE=main'] # Toggle between floating and tiling layout
-backspace = ['close-all-windows-but-current', 'mode main', 'exec-and-forget sketchybar --trigger aerospace_mode_change MODE=main']
+    esc = ['reload-config', 'mode main']
+    r = ['flatten-workspace-tree', 'mode main'] # reset layout
+    f = ['layout floating tiling', 'mode main'] # Toggle between floating and tiling layout
+    backspace = ['close-all-windows-but-current', 'mode main']
 
-alt-h = ['join-with left', 'mode main', 'exec-and-forget sketchybar --trigger aerospace_mode_change MODE=main']
-alt-j = ['join-with down', 'mode main', 'exec-and-forget sketchybar --trigger aerospace_mode_change MODE=main']
-alt-k = ['join-with up', 'mode main', 'exec-and-forget sketchybar --trigger aerospace_mode_change MODE=main']
-alt-l = ['join-with right', 'mode main', 'exec-and-forget sketchybar --trigger aerospace_mode_change MODE=main']
-enter = 'mode main'
-q = 'mode main'
+    # sticky is not yet supported https://github.com/nikitabobko/AeroSpace/issues/2
+    #s = ['layout sticky tiling', 'mode main']
 
-[[on-window-detected]]
-if.app-name-regex-substring = 'wezterm-gui'
-run = 'layout floating'
+    alt-shift-h = ['join-with left', 'mode main']
+    alt-shift-j = ['join-with down', 'mode main']
+    alt-shift-k = ['join-with up', 'mode main']
+    alt-shift-l = ['join-with right', 'mode main']
 
-[[on-window-detected]]
-if.app-id = 'org.whispersystems.signal-desktop'
-run = 'move-node-to-workspace chats'
-
-[[on-window-detected]]
-if.app-id = 'com.apple.MobileSMS'
-run = 'move-node-to-workspace chats'
-
-[[on-window-detected]]
-if.app-id = 'net.whatsapp.WhatsApp'
-run = 'move-node-to-workspace chats'
-
-[[on-window-detected]]
-if.app-id = 'com.viber.osx'
-run = 'move-node-to-workspace chats'
-
-[[on-window-detected]]
-if.app-id = 'com.github.wez.wezterm'
-run = 'move-node-to-workspace terminal'
-
-[[on-window-detected]]
-if.app-id = 'com.mitchellh.ghostty'
-run = 'move-node-to-workspace terminal'
-
-[[on-window-detected]]
-if.app-id = 'com.apple.finder'
-run = 'layout floating'
-
-[[on-window-detected]]
-if.app-id = 'com.spotify.client'
-run = 'move-node-to-workspace misc'
-
-[[on-window-detected]]
-if.app-id = 'com.apple.Safari'
-run = 'move-node-to-workspace work'
-
-[[on-window-detected]]
-if.app-id = 'com.vivaldi.Vivaldi'
-run = 'move-node-to-workspace personal'
-
-[[on-window-detected]]
-if.app-id = 'com.brave.Browser'
-if.window-title-regex-substring = 'private'
-run = 'move-node-to-workspace personal'
-
-[[on-window-detected]]
-if.app-id = 'com.brave.Browser'
-if.window-title-regex-substring = 'work'
-run = 'move-node-to-workspace work'
-
-[[on-window-detected]]
-if.app-id = 'com.brave.Browser'
-if.window-title-regex-substring = 'Bitwarden'
-run = 'layout floating'
-
-[[on-window-detected]]
-if.app-name-regex-substring = 'WhatsApp Web'
-run = 'move-node-to-workspace chats'
-
-[[on-window-detected]]
-if.app-id = 'com.alienator88.Pearcleaner'
-run = 'layout floating'
-
-[[on-window-detected]]
-if.app-id = 'com.apple.iCal'
-run = 'layout floating'
-
-[[on-window-detected]]
-if.app-id = 'com.getcoldturkey.blocker'
-run = 'layout floating'
-
-[[on-window-detected]]
-if.window-title-regex-substring = 'WireGuard'
-run = 'layout floating'
-
-[[on-window-detected]]
-if.window-title-regex-substring = 'LuLu Alert'
-run = 'layout floating'
-
-[[on-window-detected]]
-if.app-id = 'net.kovidgoyal.calibre'
-run = 'layout floating'
-
-[[on-window-detected]]
-if.app-id = 'com.apple.iWork.Numbers'
-run = 'layout floating'
-
-[[on-window-detected]]
-if.window-title-regex-substring = 'file-search'
-run = 'layout floating'
-
-[[on-window-detected]]
-if.app-name-regex-substring = 'kitty'
-run = 'layout floating'
-
-[workspace-to-monitor-force-assignment]
-    'personal' = 'main'
-    'chats' = 'main'
-    'terminal' = 'main'
-    'work' = 'main'
-    'misc' = 'secondary'
