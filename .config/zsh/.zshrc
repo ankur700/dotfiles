@@ -64,7 +64,6 @@ alias ls="eza --color=always --git --icons=always"
 alias "theme-tokyo-night"="starship preset tokyo-night -o ~/dotfiles/.config/starship/starship.toml && source ~/.zshrc"
 alias "theme-gruvbox"="starship preset gruvbox-rainbow -o ~/dotfiles/.config/starship/starship.toml && source ~/.zshrc"
 alias "theme-jetpack"="starship preset jetpack -o ~/dotfiles/.config/starship/starship.toml && source ~/.zshrc"
-alias code="codium"
 # use vi mode
 #set -o vi
 bindkey -e
