@@ -37,7 +37,9 @@ fi
 brew analytics off
 
 echo "==> brew bundle (Brewfile)"
-brew bundle --file="$DOTFILES/Brewfile"
+# --no-upgrade: install missing packages only; leave already-installed apps as-is
+# (without this, brew bundle upgrades outdated formulae/casks and looks like a reinstall)
+brew bundle --file="$DOTFILES/Brewfile" --no-upgrade
 
 echo "==> Symlinks"
 "$DOTFILES/link.sh"

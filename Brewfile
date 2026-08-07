@@ -1,7 +1,8 @@
 tap "anomalyco/tap"
 tap "can1357/tap"
 tap "nikitabobko/tap"
-tap "supabase/tap"
+tap "zennotes/tap"
+# tap "supabase/tap"
 # Apple Intelligence from the command-line, with OpenAi-compatible API server
 brew "apfel"
 # Extendable version manager with support for Ruby, Node.js, Erlang & more
@@ -81,7 +82,7 @@ brew "ripgrep"
 # Cross-shell prompt for astronauts
 brew "starship"
 # Command-line tool for Stripe
-brew "stripe-cli"
+# brew "stripe-cli"
 # Opinionated Lua code formatter
 brew "stylua"
 # Modern and pretty fancy file manager for the terminal
@@ -110,18 +111,17 @@ brew "zsh-syntax-highlighting"
 brew "zsh-vi-mode"
 # The AI coding agent built for the terminal.
 brew "anomalyco/tap/opencode", trusted: true
-# Coding agent with the IDE wired in
+# Oh My Pi Coding agent with the IDE wired in
 brew "can1357/tap/omp", trusted: true
 # Supabase CLI
-brew "supabase/tap/supabase", trusted: true
+# brew "supabase/tap/supabase", trusted: true
 # AeroSpace is an i3-like tiling window manager for macOS
 cask "nikitabobko/tap/aerospace", trusted: true
-# Enable Windows-like alt-tab
-cask "alt-tab"
 # Utility that prevents the system from going to sleep
 cask "caffeine"
-# Voice and text chat software
-cask "discord"
+# macOS menu bar toolkit.
+cask "vorssaint"
+# Nerd Fonts
 cask "font-anonymice-nerd-font"
 cask "font-caskaydia-cove-nerd-font"
 cask "font-caskaydia-mono-nerd-font"
@@ -131,6 +131,7 @@ cask "font-jetbrains-mono-nerd-font"
 cask "font-meslo-lg-nerd-font"
 cask "font-symbols-only-nerd-font"
 cask "font-victor-mono-nerd-font"
+
 # Terminal emulator that uses platform-native UI and GPU acceleration
 cask "ghostty"
 # Web browser
@@ -139,8 +140,6 @@ cask "google-chrome"
 cask "herd"
 # Utility to hide menu bar items
 cask "hiddenbar"
-# Terminal emulator as alternative to Apple's Terminal app
-cask "iterm2"
 # File archiver
 cask "keka@beta"
 # Open-source keystroke visualiser
@@ -149,18 +148,20 @@ cask "keycastr"
 cask "lulu"
 # Knowledge base that works on top of a local folder of plain text Markdown files
 cask "obsidian"
+# Note-taking app that uses Markdown and is designed for speed and efficiency(Vim first)
+cask "zennotes"
 # Document editor
 cask "onlyoffice"
 # Replacement for Docker Desktop
 cask "orbstack"
 # Utility to uninstall apps and remove leftover files from old/uninstalled apps
-cask "pearcleaner"
+# cask "pearcleaner"
 # Control your tools with a few keystrokes
 cask "raycast"
 # Tool that provides consistent, highly configurable symbols for apps
 cask "sf-symbols"
 # Team communication and collaboration software
-cask "slack"
+# cask "slack"
 # Music streaming service
 cask "spotify"
 # Native terminal coding agents command center
@@ -178,7 +179,6 @@ cask "zed"
 # Gecko based web browser
 cask "zen"
 mas "Boop", id: 1518425043
-mas "CleanMyKeyboard", id: 6468120888
 mas "LocalSend", id: 1661733229
 mas "WhatsApp", id: 310633997
 mas "Xcode", id: 497799835
@@ -216,7 +216,6 @@ vscode "yoavbls.pretty-ts-errors"
 go "github.com/wailsapp/wails/v2/cmd/wails"
 npm "@earendil-works/pi-coding-agent"
 npm "atmos-weather-cli"
-npm "atmos"
 npm "npm-check"
 npm "npm-scan"
 npm "pnpm"
@@ -233,18 +232,12 @@ brew "gitleaks"
 brew "nvm"
 brew "wireguard-go"
 
-cask "arc"
 cask "font-fira-code"
 cask "font-fira-mono-nerd-font"
 cask "font-iosevka-nerd-font"
 cask "font-monofur-nerd-font"
 cask "font-sf-mono"
 cask "font-sf-pro"
-cask "wezterm"
-
-# Requires the tap below (old install.sh path; fonts may also be available as plain casks).
-tap "shaunsingh/sfmono-nerd-font-ligaturized"
-cask "font-sf-mono-nerd-font-ligaturized"
 
 mas "WireGuard", id: 1451685025
 mas "Vimari", id: 1480933944
