@@ -1,11 +1,5 @@
-# =============================================================================
-# Nix Environment Configuration
-# =============================================================================
-
-# Source the nix-darwin environment if it exists
-if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
-  source '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
-fi
+#!/bin/zsh
+# Primary shell config. bashrc mirrors the shared parts below.
 
 export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="robbyrussell"
@@ -13,31 +7,64 @@ CASE_SENSITIVE="true"
 ENABLE_CORRECTION="true"
 plugins=(git)
 
-source $ZSH/oh-my-zsh.sh
+source "$ZSH/oh-my-zsh.sh"
 
-# export STARSHIP_CONFIG=~/.config/starship/starship.toml
+# -----------------------------------------------------------------------------
+# Shared with bashrc (keep in sync; prefer this file when they differ)
+# -----------------------------------------------------------------------------
 
+export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
+export VISUAL=nvim
+export EDITOR=nvim
+export HISTSIZE=1000000
+export SAVEHIST=$HISTSIZE
+export LESS="-XRFS"
+export FZF_CTRL_T_OPTS="--preview 'bat -n --color=always --style=numbers {}'"
+export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -200'"
 
-# get machine's ip address
+# Ghostty: force a widely supported TERM
+if [[ "$TERM_PROGRAM" == "ghostty" ]]; then
+  export TERM=xterm-256color
+fi
+
+# PATH
+export PATH="$PATH:$HOME/bin"
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$PATH:$HOME/go/bin"
+export PATH="$PATH:$HOME/.config/zfunc"
+export PATH="$(brew --prefix)/opt/curl/bin:$PATH"
+export PATH="$(brew --prefix)/opt/mysql-client/bin:$PATH"
+export PATH="$PATH:$HOME/Library/Python/3.10/bin"
+export PATH="$HOME/Library/Application Support/Herd/bin:$PATH"
+
+# Herd PHP ini scan dirs
+export HERD_PHP_83_INI_SCAN_DIR="$HOME/Library/Application Support/Herd/config/php/83/"
+export HERD_PHP_84_INI_SCAN_DIR="$HOME/Library/Application Support/Herd/config/php/84/"
+export HERD_PHP_85_INI_SCAN_DIR="$HOME/Library/Application Support/Herd/config/php/85/"
+
+# nvm
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "$HOME/.nvm" || printf %s "$XDG_CONFIG_HOME/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"
+
+# pnpm
+export PNPM_HOME="$HOME/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME/bin:"*) ;;
+  *) export PATH="$PNPM_HOME/bin:$PATH" ;;
+esac
+
+# Aliases
 alias ip="ipconfig getifaddr en0"
-
-# edit global zsh configuration
 alias zshconfig="nvim ~/.zshrc"
-# reload zsh configuration
+alias bashconfig="nvim ~/.bashrc"
 alias zr="source ~/.zshrc"
 alias br="source ~/.bashrc"
-# reload zsh configuration
 alias ohmyzsh="cd ~/.oh-my-zsh"
-
-# navigate to global ssh directory
 alias sshhome="cd ~/.ssh"
-# edit global ssh configuration
 alias sshconfig="nvim ~/.ssh/config"
-
-# edit global git configuration
 alias gitconfig="nvim ~/.config/git/config"
 
-# git aliases
 alias gitl="git lg"
 alias gita="git add ."
 alias gitc="cz commit"
@@ -54,24 +81,47 @@ alias gstsm="git_stash_show_m"
 alias gstd="git_stash_drop"
 alias gstl="git stash list"
 alias gsta="git_stash_apply"
+
 alias dup="docker-compose up -d"
 alias dbuild="docker-compose build"
 alias dstop="docker stop"
+alias dc="docker compose"
+
 alias ls="eza --color=always --git --icons=always"
+alias ll="eza -l --color=always --git --icons=always"
+alias tree="eza --tree"
+alias cat="bat"
+alias fastfetch="fastfetch; printf '\n\n'"
 
 alias loc="npx sloc --format cli-table --format-option head --exclude 'build|\.svg$\.xml' ./"
-alias jsonencode="awk 'NF {sub(/\r/, ""); printf "%s\\n",$0;}' $0"
-alias fastfetch="fastfetch; printf '\n\n'"
-alias cat="bat"
+alias jsonencode="awk 'NF {sub(/\r/, \"\"); printf \"%s\\\\n\",\$0;}'"
 
-# use vi mode
+alias mv="mv -vi"
+alias cpv="rsync -avh --info=progress2"
+alias cl="clear"
+alias c="clear"
+
+alias ..="cd .."
+alias cd..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+
+alias theme-tokyo-night="starship preset tokyo-night -o ~/dotfiles/.config/starship/starship.toml --force && source ~/.zshrc"
+alias theme-gruvbox="starship preset gruvbox-rainbow -o ~/dotfiles/.config/starship/starship.toml --force && source ~/.zshrc"
+alias theme-jetpack="starship preset jetpack -o ~/dotfiles/.config/starship/starship.toml --force && source ~/.zshrc"
+alias theme-nerdfont="starship preset nerd-font-symbols -o ~/dotfiles/.config/starship/starship.toml --force && source ~/.zshrc"
+
+# Tools
+eval "$(fzf --zsh)"
+eval "$(zoxide init zsh)"
+eval "$(starship init zsh)"
+
+# -----------------------------------------------------------------------------
+# zsh-only
+# -----------------------------------------------------------------------------
+
 set -o vi
 bindkey -e
-
-export VISUAL=nvim
-export EDITOR=nvim
-export HISTSIZE=1000000
-export SAVEHIST=$HISTSIZE
 
 setopt HIST_IGNORE_SPACE
 setopt HIST_IGNORE_DUPS
@@ -82,51 +132,11 @@ setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_FIND_NO_DUPS
 setopt HIST_REDUCE_BLANKS
 
-export PATH=$PATH":$HOME/bin"
-export PATH=$PATH":$HOME/run/current-system/sw/bin"
-export PATH="/Users/ankur/.local/bin:$PATH"
-export PATH=$PATH":$HOME/go/bin"
-export PATH=$PATH":$HOME/.config/zfunc"
-export PATH="$(brew --prefix)/opt/curl/bin:$PATH"
-export PATH="$(brew --prefix)/opt/mysql-client/bin:$PATH"
-# export PATH="/$PATH:$HOME/.cargo/bin"
-export PATH=$PATH:"$HOME/Library/Python/3.10/bin"
-export LESS="-XRFS"
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#a89984"
-export FZF_CTRL_T_OPTS="--preview 'bat -n --color=always --style=numbers {}'"
-export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -200'"
 
+source "$(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+source "$(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
 
-
-# Herd injected PHP binary.
-export PATH="/Users/ankur/Library/Application Support/Herd/bin/":$PATH
-export PATH="$HOME/Library/Application Support/Herd/bin:$PATH"
-
-# source $(brew --prefix nvm)/nvm.sh
-source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-
-# load zsh-completions
 autoload -U compinit && compinit
 
-# use nvm
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-eval "$(fzf --zsh)"
 zvm_after_init_commands+=('[ -f $HOME/.fzf.zsh ] && source $HOME/.fzf.zsh')
-
-# initialize zoxide and starship
-eval "$(zoxide init zsh)"
-# eval "$(starship init zsh)"
-
-
-# Herd injected PHP 8.4 configuration.
-export HERD_PHP_84_INI_SCAN_DIR="/Users/ankur/Library/Application Support/Herd/config/php/84/"
-
-# Herd injected PHP 8.5 configuration.
-export HERD_PHP_85_INI_SCAN_DIR="/Users/ankur/Library/Application Support/Herd/config/php/85/"
-
-# Herd injected PHP 8.3 configuration.
-export HERD_PHP_83_INI_SCAN_DIR="/Users/ankur/Library/Application Support/Herd/config/php/83/"

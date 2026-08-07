@@ -1,127 +1,137 @@
 #!/bin/bash
+# Mirrors shared settings from ~/.zshrc (zsh is source of truth).
+# Only bash-specific init lives in the bottom section.
 
-# =============================================================================
-# Nix Environment Configuration
-# =============================================================================
+# -----------------------------------------------------------------------------
+# Shared with zshrc (keep in sync; prefer zshrc when they differ)
+# -----------------------------------------------------------------------------
 
-# Source the nix-darwin environment if it exists
-if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
-  source '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
-fi
+export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
+export VISUAL=nvim
+export EDITOR=nvim
+export HISTSIZE=1000000
+export HISTFILESIZE=$HISTSIZE
+export LESS="-XRFS"
+export FZF_CTRL_T_OPTS="--preview 'bat -n --color=always --style=numbers {}'"
+export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -200'"
 
-# Source the darwin-specific environment if it exists
-if [ -e '/etc/static/bashrc' ]; then
-  source '/etc/static/bashrc'
-fi
-
-# =============================================================================
-# Terminal Configuration
-# =============================================================================
-
-# Set the terminal configuration for Ghostty
+# Ghostty: force a widely supported TERM
 if [[ "$TERM_PROGRAM" == "ghostty" ]]; then
-    export TERM=xterm-256color
+  export TERM=xterm-256color
 fi
 
-# =============================================================================
-# Aliases
-# =============================================================================
+# PATH
+export PATH="$PATH:$HOME/bin"
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$PATH:$HOME/go/bin"
+export PATH="$PATH:$HOME/.config/zfunc"
+if command -v brew &>/dev/null; then
+  export PATH="$(brew --prefix)/opt/curl/bin:$PATH"
+  export PATH="$(brew --prefix)/opt/mysql-client/bin:$PATH"
+fi
+export PATH="$PATH:$HOME/Library/Python/3.10/bin"
+export PATH="$HOME/Library/Application Support/Herd/bin:$PATH"
 
-# Modern CLI alternatives
-alias ls="eza --icons --git"
-alias ll="eza -l --icons --git"
+# Herd PHP ini scan dirs
+export HERD_PHP_83_INI_SCAN_DIR="$HOME/Library/Application Support/Herd/config/php/83/"
+export HERD_PHP_84_INI_SCAN_DIR="$HOME/Library/Application Support/Herd/config/php/84/"
+export HERD_PHP_85_INI_SCAN_DIR="$HOME/Library/Application Support/Herd/config/php/85/"
+
+# nvm
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "$HOME/.nvm" || printf %s "$XDG_CONFIG_HOME/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"
+
+# pnpm
+export PNPM_HOME="$HOME/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME/bin:"*) ;;
+  *) export PATH="$PNPM_HOME/bin:$PATH" ;;
+esac
+
+# Aliases
+alias ip="ipconfig getifaddr en0"
+alias zshconfig="nvim ~/.zshrc"
+alias bashconfig="nvim ~/.bashrc"
+alias zr="source ~/.zshrc"
+alias br="source ~/.bashrc"
+alias ohmyzsh="cd ~/.oh-my-zsh"
+alias sshhome="cd ~/.ssh"
+alias sshconfig="nvim ~/.ssh/config"
+alias gitconfig="nvim ~/.config/git/config"
+
+alias gitl="git lg"
+alias gita="git add ."
+alias gitc="cz commit"
+alias gdf="git diff"
+alias gc="git checkout"
+alias gs="git status"
+alias ga="git add"
+alias gp="git push origin"
+alias gpl="git pull origin"
+alias gsp="git stash pop"
+alias gst="git stash"
+alias gsts="git_stash_show"
+alias gstsm="git_stash_show_m"
+alias gstd="git_stash_drop"
+alias gstl="git stash list"
+alias gsta="git_stash_apply"
+
+alias dup="docker-compose up -d"
+alias dbuild="docker-compose build"
+alias dstop="docker stop"
+alias dc="docker compose"
+
+alias ls="eza --color=always --git --icons=always"
+alias ll="eza -l --color=always --git --icons=always"
 alias tree="eza --tree"
 alias cat="bat"
+alias fastfetch="fastfetch; printf '\n\n'"
 
-# Development shortcuts
-alias dc="docker compose"
-alias g="git"
+alias loc="npx sloc --format cli-table --format-option head --exclude 'build|\.svg$\.xml' ./"
+alias jsonencode="awk 'NF {sub(/\r/, \"\"); printf \"%s\\\\n\",\$0;}'"
 
-# Shell management
-alias rbash="source ~/.bashrc"
-alias rzsh="source ~/.zshrc"
-
-# File operations
 alias mv="mv -vi"
 alias cpv="rsync -avh --info=progress2"
 alias cl="clear"
 alias c="clear"
-alias count="ls * | wc -l"
-alias suno="sudo nano"
-#alias n="nano"
 
-# SSH shortcuts
-alias sawtee-forge="ssh forge@143.244.138.3"
-
-# Starship theme shortcuts
-alias ss-jetpack='starship preset jetpack -o ~/.config/starship.toml'
-alias ss-pure='starship preset pure-preset -o ~/.config/starship.toml'
-alias ss-gruvbox='starship preset gruvbox-rainbow -o ~/.config/starship.toml'
-alias ss-tn='starship preset tokyo-night -o ~/.config/starship.toml'
-alias ss-cat='starship preset catppuccin-powerline -o ~/.config/starship.toml'
-
-# Directory navigation shortcuts
 alias ..="cd .."
 alias cd..="cd .."
-alias ...="cd ../../"
-alias ....="cd ../../../"
+alias ...="cd ../.."
+alias ....="cd ../../.."
 
-# =============================================================================
-# Path Configuration
-# =============================================================================
+alias theme-tokyo-night="starship preset tokyo-night -o ~/dotfiles/.config/starship/starship.toml --force && source ~/.bashrc"
+alias theme-gruvbox="starship preset gruvbox-rainbow -o ~/dotfiles/.config/starship/starship.toml --force && source ~/.bashrc"
+alias theme-jetpack="starship preset jetpack -o ~/dotfiles/.config/starship/starship.toml --force && source ~/.bashrc"
+alias theme-nerdfont="starship preset nerd-font-symbols -o ~/dotfiles/.config/starship/starship.toml --force && source ~/.bashrc"
 
-# Herd injected PHP binary
-export PATH="/Users/ankur/Library/Application Support/Herd/bin/":$PATH
+# Stash helpers (also defined in zsh .zshenv)
+git_stash_show() { git stash show stash@{"$1"}; }
+git_stash_show_m() { git stash show -m stash@{"$1"}; }
+git_stash_apply() { git stash apply stash@{"$1"}; }
+git_stash_drop() { git stash drop stash@{"$1"}; }
 
-# Go binaries
-export PATH="/usr/local/go/bin:$PATH"
+# Tools
+command -v fzf &>/dev/null && eval "$(fzf --bash)"
+command -v zoxide &>/dev/null && eval "$(zoxide init bash)"
+command -v starship &>/dev/null && eval "$(starship init bash)"
 
-# Nix profile
-export PATH=$HOME/.nix-profile/bin:$PATH
+# -----------------------------------------------------------------------------
+# bash-only
+# -----------------------------------------------------------------------------
 
-# =============================================================================
-# Tool Initialization
-# =============================================================================
-
-# Initialize starship prompt
-if command -v starship &> /dev/null; then
-    eval "$(starship init bash)"
-fi
-
-# Initialize zoxide
-if command -v zoxide &> /dev/null; then
-    eval "$(zoxide init bash)"
-fi
-
-# Initialize direnv
-if command -v direnv &> /dev/null; then
-    eval "$(direnv hook bash)"
-fi
-
-# =============================================================================
-# Bash-specific Settings
-# =============================================================================
-
-# Enable bash history
-HISTSIZE=1000
-HISTFILESIZE=2000
+set -o vi
 HISTCONTROL=ignoreboth
-
-# Check window size after each command
 shopt -s checkwinsize
-
-# Make bash append rather than overwrite the history on disk
 shopt -s histappend
 
-# Enable programmable completion features
 if ! shopt -oq posix; then
-  if [ -f /usr/share/bash-completion/bash_completion ]; then
-    source /usr/share/bash-completion/bash_completion
-  elif [ -f /etc/bash_completion ]; then
-    source /etc/bash_completion
+  if [[ -f /opt/homebrew/etc/profile.d/bash_completion.sh ]]; then
+    . /opt/homebrew/etc/profile.d/bash_completion.sh
+  elif [[ -f /usr/share/bash-completion/bash_completion ]]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [[ -f /etc/bash_completion ]]; then
+    . /etc/bash_completion
   fi
 fi
-
-
-# Auto-Warpify
-[[ "$-" == *i* ]] && printf 'P$f{"hook": "SourcedRcFileForWarp", "value": { "shell": "bash", "uname": "Darwin" }}œ' 

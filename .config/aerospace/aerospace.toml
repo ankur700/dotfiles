@@ -9,8 +9,8 @@ config-version = 2
 # Available commands : https://nikitabobko.github.io/AeroSpace/commands
 after-startup-command = []
 
-# Start AeroSpace at login
-start-at-login = false
+# Start AeroSpace at login (registers a macOS Login Item via SMAppService)
+start-at-login = true
 
 # Normalizations. See: https://nikitabobko.github.io/AeroSpace/guide#normalization
 enable-normalization-flatten-containers = true
@@ -45,8 +45,9 @@ automatically-unhide-macos-hidden-apps = false
 # even when they are invisible.
 # This config version is only available since 'config-version = 2'
 # Fallback value (if you omit the key): persistent-workspaces = []
+# M = notes/docs (bindings already use alt-m)
 persistent-workspaces = ["1", "2", "3", "4", "5", "B",
-                         "C", "E", "T", "W"]
+                         "C", "E", "M", "T", "W"]
 
 # A callback that runs every time binding mode changes
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
@@ -178,9 +179,115 @@ on-mode-changed = []
     alt-shift-l = ['join-with right', 'mode main']
 
 
+# -----------------------------------------------------------------------------
+# App → workspace assignments
+# Order matters: more specific rules (e.g. Cursor Agent title) first.
+# Workspaces: B=browser C=code T=terminal M=notes E=media/social W=utils/agent
+# -----------------------------------------------------------------------------
+
+# Cursor Agent Window → W (must be before the general Cursor rule)
+[[on-window-detected]]
+    if.app-id = 'com.todesktop.230313mzl4w4u92'
+    if.window-title-regex-substring = 'Agent'
+    run = ['move-node-to-workspace W']
+
+# C — code / IDEs
+[[on-window-detected]]
+    if.app-id = 'com.todesktop.230313mzl4w4u92' # Cursor
+    run = ['move-node-to-workspace C']
+
+[[on-window-detected]]
+    if.app-id = 'com.microsoft.VSCode'
+    run = ['move-node-to-workspace C']
+
+[[on-window-detected]]
+    if.app-id = 'dev.zed.Zed'
+    run = ['move-node-to-workspace C']
+
+[[on-window-detected]]
+    if.app-id = 'com.jetbrains.intellij.ce'
+    run = ['move-node-to-workspace C']
+
+[[on-window-detected]]
+    if.app-id = 'com.apple.dt.Xcode'
+    run = ['move-node-to-workspace C']
+
+[[on-window-detected]]
+    if.app-id = 'com.tinyapp.TablePlus'
+    run = ['move-node-to-workspace C']
+
+[[on-window-detected]]
+    if.app-id = 'com.soloterm.solo'
+    run = ['move-node-to-workspace C']
+
+# T — terminal / CLI UIs
+[[on-window-detected]]
+    if.app-id = 'com.mitchellh.ghostty'
+    run = ['move-node-to-workspace T']
+
+[[on-window-detected]]
+    if.app-id = 'app.supabit.supacode'
+    run = ['move-node-to-workspace T']
+
+[[on-window-detected]]
+    if.app-id = 'de.beyondco.herd'
+    run = ['layout floating', 'move-node-to-workspace T']
+
+[[on-window-detected]]
+    if.app-id = 'dev.kdrag0n.MacVirt' # OrbStack
+    run = ['layout floating', 'move-node-to-workspace T']
+
+# B — browsers
+[[on-window-detected]]
+    if.app-id = 'app.zen-browser.zen'
+    run = ['move-node-to-workspace B']
+
+[[on-window-detected]]
+    if.app-id = 'com.google.Chrome'
+    run = ['move-node-to-workspace B']
+
+[[on-window-detected]]
+    if.app-id = 'com.apple.Safari'
+    run = ['move-node-to-workspace B']
+
+# M — notes / docs
+[[on-window-detected]]
+    if.app-id = 'md.obsidian'
+    run = ['move-node-to-workspace M']
+
+[[on-window-detected]]
+    if.app-id = 'com.adibhanna.zennotes'
+    run = ['move-node-to-workspace M']
+
+[[on-window-detected]]
+    if.app-id = 'asc.onlyoffice.ONLYOFFICE'
+    run = ['move-node-to-workspace M']
+
+[[on-window-detected]]
+    if.app-id = 'com.canva.CanvaDesktop'
+    run = ['move-node-to-workspace M']
+
+[[on-window-detected]]
+    if.app-id = 'com.canva.affinity'
+    run = ['move-node-to-workspace M']
+
+# E — media / social
+[[on-window-detected]]
+    if.app-id = 'com.spotify.client'
+    run = ['layout floating', 'move-node-to-workspace E']
+
+[[on-window-detected]]
+    if.app-id = 'com.hnc.Discord'
+    run = ['move-node-to-workspace E']
+
+[[on-window-detected]]
+    if.app-id = 'org.videolan.vlc'
+    run = ['layout floating', 'move-node-to-workspace E']
+
+# W — utils, chat, system UI (+ Cursor Agent above)
 [[on-window-detected]]
     if.app-id = 'com.apple.systempreferences'
-    run = ['layout floating', 'move-node-to-workspace W']  # The callback itself
+    run = ['layout floating', 'move-node-to-workspace W']
 
 [[on-window-detected]]
     if.app-id = 'com.apple.finder'
@@ -191,34 +298,62 @@ on-mode-changed = []
     run = ['layout floating', 'move-node-to-workspace W']
 
 [[on-window-detected]]
-    if.app-id = 'com.spotify.client'
-    run = ['layout floating', 'move-node-to-workspace E']
+    if.app-id = 'com.tinyspeck.slackmacgap'
+    run = ['move-node-to-workspace W']
 
 [[on-window-detected]]
-    if.app-id = 'dev.zed.Zed'
-    run = [ 'move-node-to-workspace C']
+    if.app-id = 'ru.keepcoder.Telegram'
+    run = ['move-node-to-workspace W']
 
 [[on-window-detected]]
-    if.app-id = 'com.mitchellh.ghostty'
-    run = 'move-node-to-workspace T' # mnemonics T - Terminal
+    if.app-id = 'net.whatsapp.WhatsApp'
+    run = ['move-node-to-workspace W']
 
 [[on-window-detected]]
-    if.app-id = 'app.supabit.supacode'
-    run = 'move-node-to-workspace T' # mnemonics T - Terminal
+    if.app-id = 'org.localsend.localsendApp'
+    run = ['layout floating', 'move-node-to-workspace W']
 
 [[on-window-detected]]
-    if.app-id = 'app.zen-browser.zen'
-    run = 'move-node-to-workspace B' # mnemonics B - browser
+    if.app-id = 'com.surfshark.vpnclient.macos.direct'
+    run = ['layout floating', 'move-node-to-workspace W']
+
+# Float-only menu-bar / helper apps (stay on whatever workspace you're on)
+[[on-window-detected]]
+    if.app-id = 'com.raycast.macos'
+    run = ['layout floating']
 
 [[on-window-detected]]
-    if.app-id = 'com.google.chrome'
-    run = 'move-node-to-workspace B' # mnemonics B - browser
+    if.app-id = 'com.lwouis.alt-tab-macos'
+    run = ['layout floating']
 
 [[on-window-detected]]
-    if.app-id = 'com.apple.Safari'
-    run = 'move-node-to-workspace B' # mnemonics B - browser
-
+    if.app-id = 'com.intelliscapesolutions.caffeine'
+    run = ['layout floating']
 
 [[on-window-detected]]
-    if.app-id = 'md.obsidian'
-    run = 'move-node-to-workspace M' # mnemonics N - notes
+    if.app-id = 'com.dwarvesv.minimalbar' # Hidden Bar
+    run = ['layout floating']
+
+[[on-window-detected]]
+    if.app-id = 'io.github.keycastr'
+    run = ['layout floating']
+
+[[on-window-detected]]
+    if.app-id = 'com.okatbest.boop'
+    run = ['layout floating']
+
+[[on-window-detected]]
+    if.app-id = 'com.alienator88.Pearcleaner'
+    run = ['layout floating']
+
+[[on-window-detected]]
+    if.app-id = 'com.aone.keka'
+    run = ['layout floating']
+
+[[on-window-detected]]
+    if.app-id = 'com.dejal.timeout'
+    run = ['layout floating']
+
+[[on-window-detected]]
+    if.app-id = 'app.chenyuhao.CleanMyKeyboard'
+    run = ['layout floating']

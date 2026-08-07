@@ -1,4 +1,4 @@
-theme = "sonokai"
+theme = "catppuccin_macchiato"
 
 [editor]
 bufferline = "always"
@@ -6,6 +6,8 @@ text-width = 79
 rulers = [80]
 line-number = "relative"
 auto-save = true
+cursorline = true
+color-modes = true
 
 [editor.whitespace.render]
 newline = "all"
@@ -28,6 +30,8 @@ wrap-at-text-width = true
 
 [editor.cursor-shape]
 insert = "bar"
+normal = "block"
+select = "underline"
 
 [keys.select]
 j = "extend_char_left"
