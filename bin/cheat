@@ -1,0 +1,99 @@
+#!/usr/bin/env zsh
+# Interactive cheatsheet viewer.
+#   cheat              → fzf pick an app section, then page it
+#   cheat aerospace    → show matching section(s)
+#   cheat --list       → list section titles
+#   cheat --path       → print CHEATSHEET.md path
+
+set -euo pipefail
+
+CHEAT="${CHEATSHEET_PATH:-${DOTFILES:-$HOME/dotfiles}/CHEATSHEET.md}"
+
+if [[ ! -f "$CHEAT" ]]; then
+  echo "cheatsheet not found: $CHEAT" >&2
+  exit 1
+fi
+
+list_sections() {
+  grep -E '^## ' "$CHEAT" | sed 's/^## //'
+}
+
+extract_section() {
+  local title="$1"
+  awk -v title="$title" '
+    BEGIN { show=0 }
+    /^## / {
+      if ($0 == "## " title) { show=1; print; next }
+      if (show) exit
+    }
+    show { print }
+  ' "$CHEAT"
+}
+
+render() {
+  if command -v bat >/dev/null 2>&1; then
+    bat --style=plain --paging=always --language=markdown "$@"
+  else
+    less -R
+  fi
+}
+
+case "${1:-}" in
+  --path|-p)
+    echo "$CHEAT"
+    exit 0
+    ;;
+  --list|-l)
+    list_sections
+    exit 0
+    ;;
+  --help|-h)
+    cat <<'EOF'
+Usage: cheat [section]
+       cheat --list
+       cheat --path
+
+Pick a section with fzf when no argument is given.
+Section names match "## Headings" in CHEATSHEET.md (case-insensitive substring OK).
+EOF
+    exit 0
+    ;;
+esac
+
+if [[ $# -eq 0 ]]; then
+  if ! command -v fzf >/dev/null 2>&1; then
+    echo "fzf required for interactive mode. Try: cheat --list" >&2
+    exit 1
+  fi
+  section="$(list_sections | fzf --prompt='Cheatsheet › ' --height=40% --reverse --border)"
+  [[ -z "${section:-}" ]] && exit 0
+  extract_section "$section" | render --file-name="${section}.md"
+  exit 0
+fi
+
+# Match by case-insensitive substring against section titles
+query="$*"
+matches=()
+while IFS= read -r title; do
+  if [[ "${title:l}" == *"${query:l}"* ]]; then
+    matches+=("$title")
+  fi
+done < <(list_sections)
+
+if (( ${#matches[@]} == 0 )); then
+  echo "No section matching '$query'. Try: cheat --list" >&2
+  exit 1
+fi
+
+if (( ${#matches[@]} == 1 )); then
+  extract_section "${matches[1]}" | render --file-name="${matches[1]}.md"
+  exit 0
+fi
+
+if command -v fzf >/dev/null 2>&1; then
+  section="$(printf '%s\n' "${matches[@]}" | fzf --prompt="Match › " --height=40% --reverse --border)"
+  [[ -z "${section:-}" ]] && exit 0
+  extract_section "$section" | render --file-name="${section}.md"
+else
+  printf '%s\n' "${matches[@]}"
+fi

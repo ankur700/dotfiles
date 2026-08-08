@@ -1,23 +1,15 @@
-#. "$HOME/.cargo/env"
+# Early env for all zsh invocations (login + interactive).
+# Keep this file minimal — interactive stuff lives in .zshrc modules.
 
-function git_stash_show() {
-	git stash show stash@{"$1"}
-}
+export EDITOR="${EDITOR:-nvim}"
+export VISUAL="${VISUAL:-nvim}"
 
-function git_stash_show_m() {
-	git stash show -m stash@{"$1"}
-}
+# Lightweight PATH additions that should exist even for non-interactive shells
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$PATH:$HOME/go/bin"
 
-function git_stash_apply() {
-	git stash apply stash@{"$1"}
-}
-
-function git_stash_drop() {
-	git stash drop stash@{"$1"}
-}
-
-function zvm_vi_yank() {
-	zvm_yank
-	echo ${CUTBUFFER} | pbcopy
-	zvm_exit_visual_mode
-}
+if [[ -x /opt/homebrew/bin/brew ]]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [[ -x /usr/local/bin/brew ]]; then
+  eval "$(/usr/local/bin/brew shellenv)"
+fi
