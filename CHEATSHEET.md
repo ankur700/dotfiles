@@ -10,6 +10,7 @@ Personal shortcuts for this machine. Sourced from `~/.config/zsh`, AeroSpace, tm
 | Raycast | Add `~/dotfiles/raycast` as a Script Directory → run **Cheatsheet** → pick app · bind a hotkey in Configure Command |
 | AeroSpace | `Alt+Shift+/` opens Ghostty running `cheat` |
 | Keyboardy | Install [Keyboardy](https://www.raycast.com/daveonkels/keyboardy) → set path to `~/dotfiles/CHEATSHEET.md` |
+| chezmoi | Configs live in `~/dotfiles/home/` · `chezmoi apply` · `chezmoi edit ~/.zshrc` |
 
 ---
 
@@ -118,10 +119,28 @@ Workspaces: `1–5` general · `B` browser · `C` code · `T` terminal · `M` no
 | `loc` | SLOC table for current dir |
 | `jsonencode` | Escape stdin as `\n`-joined JSON string |
 | `colormap` | Print 256-color map |
-| `theme-tokyo-night` | Starship Tokyo Night + reload |
-| `theme-gruvbox` | Starship Gruvbox + reload |
-| `theme-jetpack` | Starship Jetpack + reload |
-| `theme-nerdfont` | Starship Nerd Font + reload |
+| `dots` | `chezmoi cd` (open source repo) |
+| `zshconfig` | `chezmoi edit ~/.config/zsh/.zshrc` |
+| `bashconfig` | `chezmoi edit ~/.config/bash/bashrc` |
+| `theme-tokyo-night` | Starship Tokyo Night + re-add + reload |
+| `theme-gruvbox` | Starship Gruvbox + re-add + reload |
+| `theme-jetpack` | Starship Jetpack + re-add + reload |
+| `theme-nerdfont` | Starship Nerd Font + re-add + reload |
+
+---
+
+## chezmoi
+
+| Key | Description |
+| --- | --- |
+| `chezmoi diff` | Preview pending changes |
+| `chezmoi apply -v` | Apply source → `$HOME` |
+| `chezmoi update -v` | `git pull` + apply |
+| `chezmoi edit PATH` | Edit source for a target file |
+| `chezmoi re-add PATH` | Capture target edits back into source |
+| `chezmoi cd` / `dots` | Shell in `~/dotfiles` |
+| `chezmoi managed` | List managed targets |
+| `./bootstrap.sh` | Brewfile + chezmoi apply |
 
 ---
 

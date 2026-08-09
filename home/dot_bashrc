@@ -1,0 +1,2 @@
+# Source the managed bashrc.
+source "${XDG_CONFIG_HOME:-$HOME/.config}/bash/bashrc"

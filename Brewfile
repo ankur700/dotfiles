@@ -9,6 +9,8 @@ brew "apfel"
 brew "asdf"
 # Clone of cat(1) with syntax highlighting and Git integration
 brew "bat"
+# Manage your dotfiles across multiple diverse machines, securely
+brew "chezmoi"
 # Toolchain of the web
 brew "biome"
 # Resource monitor. C++ version and continuation of bashtop and bpytop
@@ -121,6 +123,11 @@ cask "nikitabobko/tap/aerospace", trusted: true
 cask "caffeine"
 # macOS menu bar toolkit.
 cask "vorssaint"
+brew "curl"
+brew "git-delta"
+brew "gitleaks"
+brew "nvm"
+brew "wireguard-go"
 # Nerd Fonts
 cask "font-anonymice-nerd-font"
 cask "font-caskaydia-cove-nerd-font"
@@ -131,6 +138,12 @@ cask "font-jetbrains-mono-nerd-font"
 cask "font-meslo-lg-nerd-font"
 cask "font-symbols-only-nerd-font"
 cask "font-victor-mono-nerd-font"
+cask "font-fira-code"
+cask "font-fira-mono-nerd-font"
+cask "font-iosevka-nerd-font"
+cask "font-monofur-nerd-font"
+cask "font-sf-mono"
+cask "font-sf-pro"
 
 # Terminal emulator that uses platform-native UI and GPU acceleration
 cask "ghostty"
@@ -178,9 +191,8 @@ cask "vlc"
 cask "zed"
 # Gecko based web browser
 cask "zen"
-mas "Boop", id: 1518425043
-mas "LocalSend", id: 1661733229
-mas "WhatsApp", id: 310633997
+mas "WireGuard", id: 1451685025
+mas "Vimari", id: 1480933944
 mas "Xcode", id: 497799835
 vscode "adpyke.codesnap"
 vscode "astro-build.astro-vscode"
@@ -221,24 +233,3 @@ npm "npm-scan"
 npm "pnpm"
 npm "tree-sitter-cli"
 npm "typescript"
-
-# -----------------------------------------------------------------------------
-# Also listed in install.sh but not currently installed on this machine.
-# Keep for bootstrap on a fresh Mac; prune later if you don't need them.
-# -----------------------------------------------------------------------------
-brew "curl"
-brew "git-delta"
-brew "gitleaks"
-brew "nvm"
-brew "wireguard-go"
-
-cask "font-fira-code"
-cask "font-fira-mono-nerd-font"
-cask "font-iosevka-nerd-font"
-cask "font-monofur-nerd-font"
-cask "font-sf-mono"
-cask "font-sf-pro"
-
-mas "WireGuard", id: 1451685025
-mas "Vimari", id: 1480933944
-mas "Signal", id: 874139669

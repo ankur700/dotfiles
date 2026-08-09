@@ -1,15 +1,15 @@
 # Shared aliases (sourced by zsh and bash)
 
 alias ip="ipconfig getifaddr en0"
-alias cheat="~/dotfiles/bin/cheat"
-alias zshconfig="nvim ~/dotfiles/.config/zsh/.zshrc"
-alias bashconfig="nvim ~/dotfiles/.config/bash/bashrc"
+alias zshconfig="chezmoi edit ~/.config/zsh/.zshrc"
+alias bashconfig="chezmoi edit ~/.config/bash/bashrc"
+alias dots="chezmoi cd"
 alias zr="source ~/.zshrc"
 alias br="source ~/.bashrc"
 alias ohmyzsh="cd ~/.oh-my-zsh"
 alias sshhome="cd ~/.ssh"
 alias sshconfig="nvim ~/.ssh/config"
-alias gitconfig="nvim ~/.config/git/config"
+alias gitconfig="chezmoi edit ~/.gitconfig"
 
 alias gitl="git lg"
 alias gita="git add ."
@@ -53,7 +53,7 @@ alias ...="cd ../.."
 alias ....="cd ../../.."
 
 # Theme aliases: reload is shell-specific (overridden in bashrc for bash)
-alias theme-tokyo-night="starship preset tokyo-night -o ~/dotfiles/.config/starship/starship.toml --force && source ~/.zshrc"
-alias theme-gruvbox="starship preset gruvbox-rainbow -o ~/dotfiles/.config/starship/starship.toml --force && source ~/.zshrc"
-alias theme-jetpack="starship preset jetpack -o ~/dotfiles/.config/starship/starship.toml --force && source ~/.zshrc"
-alias theme-nerdfont="starship preset nerd-font-symbols -o ~/dotfiles/.config/starship/starship.toml --force && source ~/.zshrc"
+alias theme-tokyo-night="starship preset tokyo-night -o ~/.config/starship/starship.toml --force && chezmoi re-add ~/.config/starship/starship.toml && source ~/.zshrc"
+alias theme-gruvbox="starship preset gruvbox-rainbow -o ~/.config/starship/starship.toml --force && chezmoi re-add ~/.config/starship/starship.toml && source ~/.zshrc"
+alias theme-jetpack="starship preset jetpack -o ~/.config/starship/starship.toml --force && chezmoi re-add ~/.config/starship/starship.toml && source ~/.zshrc"
+alias theme-nerdfont="starship preset nerd-font-symbols -o ~/.config/starship/starship.toml --force && chezmoi re-add ~/.config/starship/starship.toml && source ~/.zshrc"

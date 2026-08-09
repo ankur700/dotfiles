@@ -13,7 +13,7 @@
 set -euo pipefail
 
 GHOSTTY="/Applications/Ghostty.app/Contents/MacOS/ghostty"
-CHEAT="$HOME/dotfiles/bin/cheat"
+CHEAT="$HOME/.local/bin/cheat"
 
 if [[ ! -x "$CHEAT" ]]; then
   chmod +x "$CHEAT" 2>/dev/null || true

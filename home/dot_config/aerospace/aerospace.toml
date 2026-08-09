@@ -163,7 +163,7 @@ on-mode-changed = []
     alt-shift-semicolon = 'mode service'
 
     # Cheatsheet picker (fzf) in Ghostty
-    alt-shift-slash = 'exec-and-forget /bin/zsh -lc "open -na Ghostty --args -e $HOME/dotfiles/bin/cheat"'
+    alt-shift-slash = 'exec-and-forget /bin/zsh -lc "open -na Ghostty --args -e $HOME/.local/bin/cheat"'
 
 # 'service' binding mode declaration.
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes

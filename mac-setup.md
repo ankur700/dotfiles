@@ -97,13 +97,15 @@ Then from this repo:
 
 ```sh
 cd ~/dotfiles
-./bootstrap.sh          # brew bundle + symlinks
+./bootstrap.sh          # brew bundle + chezmoi apply
 ./macos.sh              # optional defaults
 ```
 
-Day to day, dump what you actually have installed:
+Day to day:
 
 ```sh
+chezmoi apply -v
+chezmoi update -v
 brew bundle dump --force --file=~/dotfiles/Brewfile
 ```
 
@@ -115,7 +117,7 @@ I use [AeroSpace](https://github.com/nikitabobko/AeroSpace) (i3-like tiling for 
 brew install --cask nikitabobko/tap/aerospace
 ```
 
-Config lives in [`.config/aerospace/aerospace.toml`](./.config/aerospace/aerospace.toml).
+Config lives in [`home/dot_config/aerospace/aerospace.toml`](./home/dot_config/aerospace/aerospace.toml).
 
 ## Menu Bar Utilities
 
@@ -194,11 +196,11 @@ I use [Ghostty](https://ghostty.org/) — fast, native, GPU-accelerated.
 brew install --cask ghostty
 ```
 
-Config: [`.config/ghostty/config.ghostty`](./.config/ghostty/config.ghostty).
+Config: [`home/dot_config/ghostty/config.ghostty`](./home/dot_config/ghostty/config.ghostty).
 
 Fonts: JetBrains Mono Nerd Font (and a few other Nerd Fonts in the Brewfile).
 
-tmux config lives under [`.config/tmux/`](./.config/tmux/).
+tmux config lives under [`home/dot_config/tmux/`](./home/dot_config/tmux/).
 
 ### Shell
 
@@ -208,29 +210,23 @@ Default shell is **zsh** with [Oh My Zsh](https://ohmyz.sh/), plus Homebrew plug
 * `zsh-syntax-highlighting`
 * `zsh-vi-mode`
 
-Prompt: [Starship](https://starship.rs/) — [`.config/starship/starship.toml`](./.config/starship/starship.toml).
+Prompt: [Starship](https://starship.rs/) — [`home/dot_config/starship/starship.toml`](./home/dot_config/starship/starship.toml).
 
-Dotfiles are modular under [`.config/zsh/`](./.config/zsh/) (same idea as the older `~/.zsh/*.zsh` layout):
+Dotfiles are managed with [chezmoi](https://www.chezmoi.io/). Shell modules live under `home/dot_config/zsh/` (applied to `~/.config/zsh/`):
 
 ```
-.config/zsh/
-  .zshrc          # oh-my-zsh + sources modules
-  .zshenv         # early PATH / brew shellenv
+home/dot_config/zsh/
+  dot_zshrc            # → ~/.config/zsh/.zshrc
+  dot_zshenv
   exports.zsh
   aliases.zsh
   functions.zsh
-  nvm.zsh         # lazy-loaded nvm
-  tools.zsh       # fzf / zoxide / starship
+  nvm.zsh              # lazy-loaded nvm
+  tools.zsh            # fzf / zoxide / starship
   plugins.zsh
 ```
 
-Clone + link:
-
-```sh
-git clone git@github.com:ankur700/dotfiles.git ~/dotfiles
-cd ~/dotfiles
-./bootstrap.sh
-```
+Home wrappers (`~/.zshrc`, `~/.zshenv`) just source those files. Edit with `chezmoi edit ~/.config/zsh/.zshrc`.
 
 ### Github SSH Setup
 

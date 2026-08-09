@@ -1,0 +1,2 @@
+# Source the managed config (modules live alongside this file).
+source "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/.zshrc"

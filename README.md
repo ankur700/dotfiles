@@ -1,75 +1,82 @@
 # Dotfiles
 
-Simple macOS setup: **Homebrew Brewfile** + **symlink script**. No Nix.
+Managed with **[chezmoi](https://www.chezmoi.io/)**. Packages via **Homebrew Brewfile**. No Nix.
 
 ## Layout
 
 | Path | Role |
 |------|------|
+| `home/` | chezmoi source state (applied into `$HOME`) |
+| `.chezmoiroot` | Points chezmoi at `home/` so docs stay at repo root |
 | `Brewfile` | Packages (formulae, casks, mas, vscode, …) |
-| `bootstrap.sh` | Install Homebrew deps + run `link.sh` |
-| `link.sh` | Symlink configs into `$HOME` |
+| `bootstrap.sh` | Install Homebrew deps + `chezmoi apply` |
 | `macos.sh` | Optional `defaults write` tweaks |
-| `.config/` | Tracked app configs |
-| `mac-setup.md` | Human-readable Mac apps / settings notes |
-| `VS-Code-setup.md` | VS Code themes / extensions / settings |
 | `CHEATSHEET.md` | Per-app keyboard / alias cheatsheet |
-| `bin/cheat` | fzf picker for `CHEATSHEET.md` |
-| `raycast/` | Raycast Script Commands (Cheatsheet dropdown + fzf) |
+| `mac-setup.md` / `VS-Code-setup.md` | Human-readable setup notes |
+| `raycast/` | Raycast Script Commands (add as Script Directory) |
 
-`nvim` is **not** managed here — keep your own `~/.config/nvim` (e.g. kickstart). Do not put an `nvim` folder back under `.config/` in this repo.
+`nvim` is **not** managed here — keep your own `~/.config/nvim`.
 
-Shell: `zsh` is primary. Config is modular under `.config/zsh/` (same idea as the old `~/.zsh/*.zsh` layout):
+### What chezmoi installs
 
 ```
-.config/zsh/
-  .zshrc           # oh-my-zsh + sources the modules below
-  .zshenv          # early PATH / brew shellenv
-  exports.zsh      # PATH, EDITOR, Herd, FZF opts, …
-  aliases.zsh
-  functions.zsh
-  nvm.zsh          # lazy-loaded nvm (faster shell start)
-  tools.zsh        # fzf / zoxide / starship
-  plugins.zsh      # autosuggestions / syntax highlighting / vi-mode hooks
+~/.zshrc  ~/.zshenv  ~/.bashrc  ~/.gitconfig  ~/.tmux.conf
+~/.config/{aerospace,bash,bat,btop,fastfetch,ghostty,helix,starship,tmux,zsh}/
+~/.local/bin/cheat
+~/Library/Application Support/lazygit/config.yml
 ```
 
-`.config/bash/bashrc` sources the shared modules for rare bash use.
+Shell modules live under `~/.config/zsh/` (aliases, exports, nvm, …). Home wrappers just `source` them.
 
 ## Fresh machine
 
 ```sh
+# one-liner (after chezmoi is available), or:
 git clone git@github.com:ankur700/dotfiles.git ~/dotfiles
 cd ~/dotfiles
-./bootstrap.sh          # packages + symlinks
+./bootstrap.sh          # brew bundle + chezmoi apply
 ./macos.sh              # optional system defaults
 ```
 
-Or `./bootstrap.sh --macos` to do both.
+Or with chezmoi only (once brew/chezmoi exist):
+
+```sh
+chezmoi init --apply git@github.com:ankur700/dotfiles.git
+```
+
+If the clone is already at `~/dotfiles`:
+
+```sh
+chezmoi init --source=~/dotfiles
+chezmoi apply -v
+```
 
 ## Day to day
 
 ```sh
-# After editing Brewfile or installing apps on this machine:
-brew bundle dump --force --file=~/dotfiles/Brewfile
+chezmoi cd                 # open a shell in the source repo
+chezmoi edit ~/.zshrc      # edit source for a target file
+chezmoi diff               # preview drift
+chezmoi apply -v           # write target state
+chezmoi re-add ~/.gitconfig  # capture local edits back into source
+chezmoi update -v          # git pull + apply
 
-# After adding/changing tracked configs:
-~/dotfiles/link.sh
+# After editing Brewfile or installing apps:
+brew bundle dump --force --file=~/dotfiles/Brewfile
 ```
 
 ## Cheatsheet
 
 ```sh
 cheat                 # fzf → pick app → bat pager
-cheat aerospace       # jump straight to a section
+cheat aerospace
 ```
 
-- **AeroSpace:** `Alt+Shift+/` opens Ghostty with the picker
-- **Raycast:** Settings → Extensions → Script Commands → Add Script Directory → `~/dotfiles/raycast`  
-  Then run **Cheatsheet**, pick an app, and optionally bind a hotkey via Configure Command  
-  Or install [Keyboardy](https://www.raycast.com/daveonkels/keyboardy) and point it at `~/dotfiles/CHEATSHEET.md` for searchable UI
+- AeroSpace: `Alt+Shift+/` opens Ghostty with the picker
+- Raycast: add `~/dotfiles/raycast` as a Script Directory
 
 ## Notes
 
-- `Brewfile` was generated from this machine plus extras that were listed in the old `install.sh` but not installed yet. Prune what you do not want.
-- VS Code extensions are in the `Brewfile` (`vscode "..."` lines); see `VS-Code-setup.md` for the write-up.
-- If you previously used nix-darwin, check that `/etc/zshrc` and `/etc/bashrc` are real files (not broken links to `/etc/static`). Determinate’s uninstaller may leave those behind.
+- Source directory is **`~/dotfiles`** (configured in `~/.config/chezmoi/chezmoi.toml` by bootstrap).
+- `gh` CLI config is left unmanaged (`_unmanaged/`, gitignored).
+- Old `link.sh` symlink workflow is replaced by `chezmoi apply`.

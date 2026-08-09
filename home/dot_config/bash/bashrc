@@ -17,10 +17,10 @@ unset _src
 [[ -f "$ZSH_CONFIG/nvm.zsh" ]] && source "$ZSH_CONFIG/nvm.zsh"
 
 # Theme aliases should reload bash, not zsh
-alias theme-tokyo-night="starship preset tokyo-night -o ~/dotfiles/.config/starship/starship.toml --force && source ~/.bashrc"
-alias theme-gruvbox="starship preset gruvbox-rainbow -o ~/dotfiles/.config/starship/starship.toml --force && source ~/.bashrc"
-alias theme-jetpack="starship preset jetpack -o ~/dotfiles/.config/starship/starship.toml --force && source ~/.bashrc"
-alias theme-nerdfont="starship preset nerd-font-symbols -o ~/dotfiles/.config/starship/starship.toml --force && source ~/.bashrc"
+alias theme-tokyo-night="starship preset tokyo-night -o ~/.config/starship/starship.toml --force && chezmoi re-add ~/.config/starship/starship.toml && source ~/.bashrc"
+alias theme-gruvbox="starship preset gruvbox-rainbow -o ~/.config/starship/starship.toml --force && chezmoi re-add ~/.config/starship/starship.toml && source ~/.bashrc"
+alias theme-jetpack="starship preset jetpack -o ~/.config/starship/starship.toml --force && chezmoi re-add ~/.config/starship/starship.toml && source ~/.bashrc"
+alias theme-nerdfont="starship preset nerd-font-symbols -o ~/.config/starship/starship.toml --force && chezmoi re-add ~/.config/starship/starship.toml && source ~/.bashrc"
 
 # Tools
 command -v fzf &>/dev/null && eval "$(fzf --bash)"
