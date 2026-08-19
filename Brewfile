@@ -1,21 +1,18 @@
-tap "can1357/tap"
+tap "alielsokary/tap", trusted: { casks: ["caskhub"] }
 tap "nikitabobko/tap"
-tap "zennotes/tap"
+tap "shaunsingh/sfmono-nerd-font-ligaturized", trusted: true
+tap "zennotes/tap", trusted: true
 
 # Clone of cat(1) with syntax highlighting and Git integration
 brew "bat"
-# Manage your dotfiles across multiple diverse machines, securely
-brew "chezmoi"
-# Toolchain of the web
-brew "biome"
 # Resource monitor. C++ version and continuation of bashtop and bpytop
 brew "btop"
-# Incredibly fast JavaScript runtime, bundler, test runner, and package manager
-brew "bun"
-# Cross-platform make
-brew "cmake"
+# Manage your dotfiles across multiple diverse machines, securely
+brew "chezmoi"
 # Defines a standard way of committing rules and communicating it
 brew "commitizen"
+# Generic library support script
+brew "libtool"
 # Graphics library to dynamically manipulate images
 brew "gd"
 # Dependency Manager for PHP
@@ -28,6 +25,8 @@ brew "fastfetch"
 brew "fd"
 # Play, record, convert, and stream select audio and video codecs
 brew "ffmpeg"
+# User-friendly command-line shell for UNIX-like operating systems
+brew "fish"
 # Command-line fuzzy finder written in Go
 brew "fzf"
 # GitHub command-line tool
@@ -42,106 +41,116 @@ brew "ifstat"
 brew "imagemagick"
 # Lightweight and flexible command-line JSON processor
 brew "jq"
+# Lazier way to manage everything docker
+brew "lazydocker"
 # Powerful, lightweight programming language
 brew "lua"
-# Just-In-Time Compiler (JIT) for the Lua programming language
-brew "luajit"
-# Package manager for the Lua programming language
-brew "luarocks"
 # Mac App Store command-line interface
 brew "mas"
+# Polyglot runtime manager (asdf rust clone)
+brew "mise"
 # Deep clean and optimize your Mac
 brew "mole"
-# Open source relational database management system
-brew "mysql", restart_service: :changed
-
+# Incremental parsing library
+brew "tree-sitter"
+# Ambitious Vim-fork focused on extensibility and agility
+brew "neovim"
+# Manage multiple Node.js versions
+brew "nvm"
 # Interpreted, interactive, object-oriented programming language
 brew "python@3.13"
+# Rsync for cloud storage
+brew "rclone"
+# Fast, efficient and secure backup program
+brew "restic"
 # Search tool like grep and The Silver Searcher
 brew "ripgrep"
 # Cross-shell prompt for astronauts
 brew "starship"
-
 # Opinionated Lua code formatter
 brew "stylua"
-# Modern and pretty fancy file manager for the terminal
-brew "superfile"
-# Change macOS audio source from the command-line
-brew "switchaudio-osx"
 # User interface to the TELNET protocol
 brew "telnet"
 # Simplified and community-driven man pages
 brew "tldr"
-# Internet file retriever
-brew "wget"
+# Blazing fast terminal file manager written in Rust, based on async I/O
+brew "yazi"
 # Shell extension to navigate your filesystem faster
 brew "zoxide"
-# Real-time type-ahead completion for Zsh
-brew "zsh-autocomplete"
 # Fish-like fast/unobtrusive autosuggestions for zsh
 brew "zsh-autosuggestions"
-# Feature-rich syntax highlighting for Zsh
-brew "zsh-fast-syntax-highlighting"
 # Fish shell like syntax highlighting for zsh
 brew "zsh-syntax-highlighting"
 # Better and friendly vi(vim) mode plugin for ZSH
 brew "zsh-vi-mode"
 # AeroSpace is an i3-like tiling window manager for macOS
 cask "nikitabobko/tap/aerospace", trusted: true
-# macOS menu bar toolkit.
-cask "vorssaint"
-brew "curl"
-brew "nvm"
-brew "wireguard-go"
-# Nerd Fonts
+# Image editing and design software
+cask "affinity"
+# Video editing and image design platform
+cask "capcut"
+# Native GUI for Homebrew casks
+cask "caskhub"
+# Write, edit, and chat about your code with AI
+cask "cursor"
+# Command-line agent for Cursor
+cask "cursor-cli"
 cask "font-hack-nerd-font"
+cask "font-iosevka-nerd-font"
 cask "font-jetbrains-mono"
 cask "font-jetbrains-mono-nerd-font"
-
 # Terminal emulator that uses platform-native UI and GPU acceleration
 cask "ghostty"
 # Web browser
 cask "google-chrome"
+# Speech to text application
+cask "handy"
 # Laravel and PHP development environment manager
 cask "herd"
 # Utility to hide menu bar items
 cask "hiddenbar"
+# Menu bar calendar
+cask "itsycal"
 # File archiver
 cask "keka@beta"
 # Open-source keystroke visualiser
 cask "keycastr"
-# Open-source firewall to block unknown outgoing connections
-cask "lulu"
-# Note-taking app that uses Markdown and is designed for speed and efficiency(Vim first)
-cask "zennotes"
+# Htop on steroids
+cask "neohtop"
 # Document editor
 cask "onlyoffice"
 # Replacement for Docker Desktop
 cask "orbstack"
-# Utility to uninstall apps and remove leftover files from old/uninstalled apps
-cask "mole"
 # Control your tools with a few keystrokes
 cask "raycast"
 # Tool that provides consistent, highly configurable symbols for apps
 cask "sf-symbols"
 # Music streaming service
 cask "spotify"
+# VPN client for secure internet access and private browsing
+cask "surfshark"
 # Native GUI tool for relational databases
 cask "tableplus"
+# Web browser
+cask "thebrowsercompany-dia"
 # Multimedia player
 cask "vlc"
+# Menu bar toolkit with keep-awake, system monitor and volume mixer
+cask "vorssaint"
+# GPU-accelerated cross-platform terminal emulator and multiplexer
+cask "wezterm"
 # Multiplayer code editor
 cask "zed"
 # Gecko based web browser
 cask "zen"
-mas "WireGuard", id: 1451685025
-mas "Vimari", id: 1480933944
+# Keyboard-first, local-first Markdown notes with vim motions and live preview
+cask "zennotes/tap/zennotes"
+mas "iMovie", id: 408981434
+mas "LocalSend", id: 1661733229
+mas "Pages", id: 361309726
+mas "WhatsApp", id: 310633997
 mas "Xcode", id: 497799835
-
+go "github.com/ankur/kura/cmd/kura"
 go "github.com/wailsapp/wails/v2/cmd/wails"
-npm "@earendil-works/pi-coding-agent"
-npm "atmos-weather-cli"
-npm "npm-scan"
-npm "pnpm"
-npm "tree-sitter-cli"
-npm "typescript"
+uv "browser-use"
+uv "graphifyy"
