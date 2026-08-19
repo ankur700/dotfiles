@@ -1,0 +1,18 @@
+font-family = JetBrainsMono NFM
+font-size = 14
+font-feature = -liga
+font-thicken = true
+title = working-directory
+window-title-font-family = JetBrainsMono NFM
+background-opacity = 0.9
+theme = Catppuccin Mocha
+window-padding-x = 8
+window-padding-y = 8
+window-padding-balance = true
+
+# Do NOT set window-width / window-height — with those fixed, Cmd+T
+# resizes the window (Ghostty bug/limitation). Remember size instead:
+window-save-state = always
+
+# Native macOS tabs in the title bar
+macos-titlebar-style = tabs

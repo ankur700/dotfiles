@@ -1,0 +1,3 @@
+#!/bin/zsh
+# Compatibility shim — real binary is ~/.local/bin/cheat (chezmoi-managed).
+exec "${HOME}/.local/bin/cheat" "$@"

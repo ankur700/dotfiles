@@ -279,6 +279,10 @@ Custom Colemak-ish / EU layout: **J K L Ö** instead of H J K L.
 
 Font: JetBrainsMono NFM 14 · themes Catppuccin Latte/Mocha.
 
+**Note:** Do not set `window-width` / `window-height` — fixed sizes make new tabs shrink/resize the window (Ghostty bug). Config uses `window-save-state = always` instead.
+
+**AeroSpace:** macOS native tabs look like separate windows to AeroSpace, so Cmd+T tiles half-screen. Ghostty is set to **float on open**; after launch, tile once with `Alt+Shift+;` then `f`. Prefer `Cmd+D` splits when you want panes without that dance.
+
 ---
 
 ## Cursor

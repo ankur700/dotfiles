@@ -1,6 +1,7 @@
 # Shared aliases (sourced by zsh and bash)
 
 alias ip="ipconfig getifaddr en0"
+alias cheat="$HOME/.local/bin/cheat"
 alias zshconfig="chezmoi edit ~/.config/zsh/.zshrc"
 alias bashconfig="chezmoi edit ~/.config/bash/bashrc"
 alias dots="chezmoi cd"

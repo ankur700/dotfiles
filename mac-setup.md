@@ -196,7 +196,7 @@ I use [Ghostty](https://ghostty.org/) — fast, native, GPU-accelerated.
 brew install --cask ghostty
 ```
 
-Config: [`home/dot_config/ghostty/config.ghostty`](./home/dot_config/ghostty/config.ghostty).
+Config: [`home/dot_config/ghostty/config`](./home/dot_config/ghostty/config).
 
 Fonts: JetBrains Mono Nerd Font (and a few other Nerd Fonts in the Brewfile).
 

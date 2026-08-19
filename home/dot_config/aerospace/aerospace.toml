@@ -224,9 +224,13 @@ on-mode-changed = []
     run = ['move-node-to-workspace C']
 
 # T — terminal / CLI UIs
+# Ghostty uses macOS native tabs; each tab is a separate AX window, so Cmd+T
+# would otherwise tile beside the current window (half-screen). Float on detect
+# (https://ghostty.org/docs/help/macos-tiling-wms). After Ghostty starts, tile
+# once with Alt+Shift+; then f — further tabs won't split the layout.
 [[on-window-detected]]
     if.app-id = 'com.mitchellh.ghostty'
-    run = ['move-node-to-workspace T']
+    run = ['layout floating', 'move-node-to-workspace T']
 
 [[on-window-detected]]
     if.app-id = 'app.supabit.supacode'
